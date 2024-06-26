@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use better_button::*;
+use better_button::prelude::*;
 
 fn main() {
     App::new()
@@ -49,18 +49,18 @@ fn spawn_b_button(mut commands: Commands) {
     );
 }
 
-fn respond_to_button_state(
-    mut query: Query<(&BMouseOverState, &mut BackgroundColor)>
-) {
-    for (under_state, mut background_color) in &mut query {
-        if under_state.just_entered {
-            background_color.0 = Color::GREEN;
-        }
-        if under_state.just_exited {
-            background_color.0 = Color::WHITE;
-        }
-    }
-}
+// fn respond_to_button_state(
+//     mut query: Query<(&BMouseOverState, &mut BackgroundColor)>
+// ) {
+//     for (under_state, mut background_color) in &mut query {
+//         if under_state.just_entered {
+//             background_color.0 = Color::GREEN;
+//         }
+//         if under_state.just_exited {
+//             background_color.0 = Color::WHITE;
+//         }
+//     }
+// }
 
 fn respond_to_button_events(
     mut query: Query<&mut BackgroundColor, With<BPressState>>,
