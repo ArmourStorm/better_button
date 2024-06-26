@@ -1,0 +1,6 @@
+[workspace]
+members = [
+    "better_button",
+    "testing_area"
+]
+resolver = "2"
