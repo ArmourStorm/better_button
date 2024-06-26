@@ -1,7 +1,15 @@
 [package]
 name = "better_button"
-version = "0.1.0"
+version = "0.8.0"
 edition = "2021"
+keywords = ["bevy", "gamedev", "ui"]
+categories = ["game-development"]
+description = "Extend Bevy buttons with on-entered and on-exited events for press, hover and mouse over states."
+repository = "https://github.com/ArmourStorm/better_button"
+readme = "../README.md"
+authors = ["ArmourStorm"]
+license = "MIT"
+license-file = "../LICENSE"
 
 [dependencies]
 bevy = "0.13.2"
