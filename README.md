@@ -1,22 +1,12 @@
+# Introduction
 
-Expands on the `Interaction` component provided in bevy, by adding more states to it and tracking whether those states have just been entered or exited in the current frame.
+Expands on the `Interaction` component provided the Bevy prelude by adding more states and tracking whether those states have just been entered or exited.
+You can read these states by querying the components directly, or listening for the events they generate.
+These states are represented by independant components, and are all bundled together in `BButtonBundle` for ease of use.
 
-When using `BButtonPlugin`
+The library works by updating the provided state components based on the `Interaction` component found on the same entity, which ensures parity with Bevy's own button behavior.
 
-## State Components
-
-One of the intended ways you can respond to button interactions is by using the provided "state" components. 
-These components each represent a state which only become active under certain conditions, 
-and they also track whether the corresponding state just entered or exited activity.
-
-> These components are updated based on the `bevy::prelude::Interaction` component included in the `bevy::prelude::ButtonBundle` to remain in parity with bevy's own button design.
-
-Here is a list of the state components provided, along with the conditions that trigger them:
- - `BPressState` - press (has parity with `Interaction::Pressed`)
- - `BHoverState` - mouse over, while not pressed (has parity with `Interaction::Hovered`)
- - `BMouseOverState` - mouse over, regardless of pressed
-
-Uses `bevy::prelude::Interaction` to track the provided states.
+Simpy add the `BButtonPlugin` to your project and use `BButtonBundle` instead of Bevy's `ButtonBundle` to get started.
 
 # How To
 
@@ -65,8 +55,23 @@ fn spawn_button(mut commands: Commands) {
 
 There are two main ways to 
 
+# How It Works
 
+## State Components
 
-# Using Without The Plugin
+One of the intended ways you can respond to button interactions is by using the provided "state" components. 
+These components each represent a state which only become active under certain conditions, 
+and they also track whether the corresponding state just entered or exited activity.
 
-# Using Without The Bundle
+> These components are updated based on the `bevy::prelude::Interaction` component included in the `bevy::prelude::ButtonBundle` to remain in parity with Bevy's own button design.
+
+Here is a list of the state components provided, along with the conditions that trigger them:
+ - `BPressState` - press (has parity with `Interaction::Pressed`)
+ - `BHoverState` - mouse over, while not pressed (has parity with `Interaction::Hovered`)
+ - `BMouseOverState` - mouse over, regardless of pressed
+
+Uses `bevy::prelude::Interaction` to track the provided states.
+
+# Advanced Use Cases
+## Using Without The Plugin
+## Using Without The Bundle
