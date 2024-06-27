@@ -28,7 +28,9 @@ This simply adds the neccesary systems to update the button states, and also reg
 
 ## 2. Spawn The BButtonBundle
 
-The `BButtonBundle` simply bundles `bevy::prelude::ButtonBundle` along with the components used in this library, n.l. `BPressState`, `BHoverState` and `BMouseOverState`.
+The `BButtonBundle` contains `bevy::prelude::ButtonBundle` along with the button components provided by this crate.
+
+Create a new system to spawns your first `BButtonBundle`:
 
 ```
 fn spawn_button(mut commands: Commands) {
@@ -49,6 +51,13 @@ fn spawn_button(mut commands: Commands) {
     );
 }
 ```
+
+Add it to your Bevy app:
+
+```
+
+```
+
 
 There are two main ways to 
 
