@@ -1,6 +1,6 @@
 # Introduction
 
-Expands on the `Interaction` component provided in Bevy by adding more states and tracking whether those states have just been entered or exited.
+Expands on the `Interaction` component provided in Bevy by tracking more states and whether those states have just been entered or exited.
 You can read these states by querying the components directly, or listening for the events they generate.
 These states are represented by independant components, and are all bundled together in `BButtonBundle` for ease of use.
 
