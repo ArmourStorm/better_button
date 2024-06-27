@@ -1,8 +1,8 @@
 # Introduction
 
 Expands on the `Interaction` component provided in Bevy by tracking more states, and whether those states have just been entered or exited.
-You can read these states by querying the components directly, or listening for the events they generate.
-These states are represented by independant components, and are all bundled together in `BButtonBundle` for ease of use.
+These states are all bundled together in `BButtonBundle` as components, and can be used by querying for these components, or listening for the events they generate.
+
 
 The library works by updating the provided state components based on the `Interaction` component found on the same entity, which ensures parity with Bevy's own button behavior.
 
