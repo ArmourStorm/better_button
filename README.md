@@ -7,7 +7,7 @@ The library works by updating the additional button components based on the `Int
 
 Simpy add the `BButtonPlugin` to your project and use `BButtonBundle` instead of Bevy's `ButtonBundle` to get started.
 
-# How To
+# Tutorial
 
 ## 1. Add The Plugin
 
