@@ -151,11 +151,16 @@ fn main() {
         )
         .add_systems(
             Update, // <------- Make sure it's in the `Update` schedule. The reason will be explained later.
-            respond_to_button_state // <------- Add the system.
+            respond_to_button_state.after(BButtonUpdateSet) // <------- Add the system, and set it to run after the `BButtonUpdateSet`.
         )
         .run();
 }
 ```
+
+### 4. Respond To Button Presses By Reading Events
+
+Since the state components of the button we created are updated in the `Update` schedule when using the `BButtonPlugin`, we cannot reliably read button presses from systems in the `FixedUpdate` schedule.
+This is because the `just_entered` and `just_exited` properties of the `BPressState` component are only set to `true` until the next time
 
 ## Where do I go from here?
 
