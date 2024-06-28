@@ -157,23 +157,8 @@ fn main() {
 }
 ```
 
-## How It Works
+## Where do I go from here?
 
-### State Components
+Please check out the wiki for the project over at https://github.com/ArmourStorm/better_button/wiki for more information!
 
-One of the intended ways you can respond to button interactions is by using the provided "state" components. 
-These components each represent a state which only become active under certain conditions, 
-and they also track whether the corresponding state just entered or exited activity.
-
-> These components are updated based on the `bevy::prelude::Interaction` component included in the `bevy::prelude::ButtonBundle` to remain in parity with Bevy's own button design.
-
-Here is a list of the state components provided, along with the conditions that trigger them:
- - `BPressState` - press (has parity with `Interaction::Pressed`)
- - `BHoverState` - mouse over, while not pressed (has parity with `Interaction::Hovered`)
- - `BMouseOverState` - mouse over, regardless of pressed
-
-Uses `bevy::prelude::Interaction` to track the provided states.
-
-## Advanced Use Cases
-### Using Without The Plugin
-### Using Without The Bundle
+Also, consider checking out my Youtube channel for other Bevy tutorials: https://www.youtube.com/channel/UCNxrqjSmo5Pke_B1Lc3p6LA.
