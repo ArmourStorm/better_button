@@ -41,7 +41,7 @@ fn spawn_camera(mut commands: Commands) {
 }
 ```
 
-## 2. Add The BButtonPlugin
+## 2. Add A BButtonPlugin
 
 Import the `better_button` prelude and add the `BButtonPlugin` to your app:
 
