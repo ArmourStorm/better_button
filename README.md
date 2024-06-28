@@ -1,4 +1,4 @@
-# Introduction
+## Introduction
 
 Expands on the `Interaction` component provided in Bevy by tracking more states, and whether those states have just been entered or exited.
 These states are all bundled together in `BButtonBundle` as components, and can be used by querying for these components, or listening for the events they generate.
@@ -7,9 +7,9 @@ The library works by updating the additional button components based on the `Int
 
 Simpy add the `BButtonPlugin` to your project and use `BButtonBundle` instead of Bevy's `ButtonBundle` to get started.
 
-# Tutorial
+## Tutorial
 
-## 1. Setup
+### 1. Setup
 
 Create a new binary crate, add bevy as a dependency and copy the following code into your `main.rs`:
 
@@ -41,7 +41,7 @@ fn spawn_camera(mut commands: Commands) {
 }
 ```
 
-## 2. Add A BButtonPlugin
+### 2. Add A BButtonPlugin
 
 Import the `better_button` prelude and add the `BButtonPlugin` to your app:
 
@@ -63,7 +63,7 @@ fn main() {
 
 This simply adds the neccesary systems to update the button states, and also registers the button events for you.
 
-## 3. Spawn The BButtonBundle
+### 3. Spawn The BButtonBundle
 
 The `BButtonBundle` contains the Bevy `ButtonBundle` along with the button components provided by the `better_button` crate.
 
@@ -113,9 +113,9 @@ fn main() {
 
 There are two main ways to 
 
-# How It Works
+## How It Works
 
-## State Components
+### State Components
 
 One of the intended ways you can respond to button interactions is by using the provided "state" components. 
 These components each represent a state which only become active under certain conditions, 
@@ -130,6 +130,6 @@ Here is a list of the state components provided, along with the conditions that 
 
 Uses `bevy::prelude::Interaction` to track the provided states.
 
-# Advanced Use Cases
-## Using Without The Plugin
-## Using Without The Bundle
+## Advanced Use Cases
+### Using Without The Plugin
+### Using Without The Bundle
