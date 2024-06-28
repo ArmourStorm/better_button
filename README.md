@@ -1,7 +1,6 @@
 ## Introduction
 
-Expands on the `Interaction` component provided in Bevy by tracking more states, and whether those states have just been entered or exited.
-These states are all bundled together in `BButtonBundle` as components, and can be used by querying for these components, or listening for the events they generate.
+Expands on the `Interaction` component provided in Bevy by tracking more states, and whether those states have just been entered or exited.These states are all bundled together in `BButtonBundle` as components, and can be used by querying for these components, or listening for the events they generate.
 
 The library works by updating the additional button components based on the `Interaction` component placed along side them, which ensures parity with Bevy's own button behavior.
 
@@ -159,8 +158,9 @@ fn main() {
 
 ### 4. Respond To Button Presses By Reading Events
 
-Since the state components of the button we created are updated in the `Update` schedule when using the `BButtonPlugin`, we cannot reliably read button presses from systems in the `FixedUpdate` schedule.
-This is because the `just_entered` and `just_exited` properties of the `BPressState` component are only set to `true` until the next time
+Since the state components of the button we created are updated in the `Update` schedule when using the `BButtonPlugin`, we cannot reliably read button presses from systems in the `FixedUpdate` schedule. This is because the `just_entered` and `just_exited` properties of the `BPressState` component are only set to `true` until the next time
+
+The Bevy engine does not provide a guarantee that systems will run in the same order every frame, thus an order needs to be established between the systems that use the button state components and the `BButtonUpdateSet`. The order does not matter, as long as we can be sure that our systems run at least once every time the `BButtonUpdateSet` runs.
 
 ## Where do I go from here?
 
