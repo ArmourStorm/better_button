@@ -9,15 +9,52 @@ Simpy add the `BButtonPlugin` to your project and use `BButtonBundle` instead of
 
 # Tutorial
 
-## 1. Add The Plugin
+## 1. Setup
+
+Create a new binary crate, add bevy as a dependency and copy the following code into your `main.rs`:
 
 ```
+use bevy::prelude::*;
+
 fn main() {
     App::new()
         .add_plugins(
             (
                 DefaultPlugins,
-                BButtonPlugin
+            )
+        )
+        .add_systems(
+            Startup,
+            (
+                spawn_camera,
+            ),
+        )
+        .run();
+}
+
+fn spawn_camera(mut commands: Commands) {
+    commands.spawn(
+        Camera3dBundle {
+            ..default()
+        }
+    );
+}
+```
+
+## 2. Add The BButtonPlugin
+
+Import the `better_button` prelude and add the `BButtonPlugin` to your app:
+
+```
+use bevy::prelude::*;
+use better_button::prelude::*; // <------- Import the `better_button` prelude.
+
+fn main() {
+    App::new()
+        .add_plugins(
+            (
+                DefaultPlugins,
+                BButtonPlugin // <------- Add the `BButtonPlugin` to the app.
             )
         )
         .run();
@@ -26,9 +63,9 @@ fn main() {
 
 This simply adds the neccesary systems to update the button states, and also registers the button events for you.
 
-## 2. Spawn The BButtonBundle
+## 3. Spawn The BButtonBundle
 
-The `BButtonBundle` contains `bevy::prelude::ButtonBundle` along with the button components provided by this crate.
+The `BButtonBundle` contains the Bevy `ButtonBundle` along with the button components provided by the `better_button` crate.
 
 Create a new system to spawns your first `BButtonBundle`:
 
@@ -55,7 +92,22 @@ fn spawn_button(mut commands: Commands) {
 Add it to your Bevy app:
 
 ```
-
+fn main() {
+    App::new()
+        .add_plugins(
+            (
+                DefaultPlugins,
+            )
+        )
+        .add_systems(
+            Startup,
+            (
+                spawn_camera,
+                spawn_button // <------- Add the `spawn_button` system to the `Startup` schedule.
+            ),
+        )
+        .run();
+}
 ```
 
 
