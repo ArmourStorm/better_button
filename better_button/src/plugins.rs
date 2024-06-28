@@ -10,6 +10,7 @@ impl Plugin for BButtonPlugin {
             .add_event::<BPressEvent>()
             .add_event::<BHoverEvent>()
             .add_event::<BMouseOverEvent>()
+            .configure_sets(Update, BButtonUpdateSet)
             .add_systems(
                 Update,
                 (
@@ -23,7 +24,7 @@ impl Plugin for BButtonPlugin {
                         generate_press_events,
                         generate_mouse_over_events,
                     )
-                ).chain(),
+                ).chain().in_set(BButtonUpdateSet),
             );
     }
 }
