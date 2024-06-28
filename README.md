@@ -110,8 +110,52 @@ fn main() {
 }
 ```
 
+### 4. Respond To Button Presses In `Update`
 
-There are two main ways to 
+Create a new system that changes the button's colour to when pressed:
+
+```
+fn respond_to_button_state(
+    mut query: Query<(&BPressState, &mut BackgroundColor)>
+) {
+    for (state, mut background_color) in &mut query {
+        if state.just_entered {
+            background_color.0 = Color::GREEN;
+        }
+        if state.just_exited {
+            background_color.0 = Color::WHITE;
+        }
+    }
+}
+```
+
+The system queries the `BPressState` component, which is a part of the `BButtonBundle` we used earlier.
+
+Now we can add the system to the `Update` schedule in your app:
+
+```
+fn main() {
+    App::new()
+        .add_plugins(
+            (
+                DefaultPlugins,
+                BButtonPlugin
+            )
+        )
+        .add_systems(
+            Startup,
+            (
+                spawn_camera,
+                spawn_button
+            ),
+        )
+        .add_systems(
+            Update, // <------- Make sure it's in the `Update` schedule. The reason will be explained later.
+            respond_to_button_state // <------- Add the system.
+        )
+        .run();
+}
+```
 
 ## How It Works
 
