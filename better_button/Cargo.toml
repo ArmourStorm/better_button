@@ -1,6 +1,6 @@
 [package]
 name = "better_button"
-version = "0.8.0"
+version = "1.0.0"
 edition = "2021"
 keywords = ["bevy", "gamedev", "ui"]
 categories = ["game-development"]
