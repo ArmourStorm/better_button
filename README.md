@@ -1,6 +1,6 @@
 ## Introduction
 
-Expands on the `Interaction` component provided in Bevy by tracking more states, and whether those states have just been entered or exited.These states are all bundled together in `BButtonBundle` as components, and can be used by querying for these components, or listening for the events they generate.
+Expands on the `Interaction` component provided in Bevy by tracking more states, and whether those states have just been entered or exited. These states are all bundled together in `BButtonBundle` as components, and can be used by querying for these components, or listening for the events they generate.
 
 The library works by updating the additional button components based on the `Interaction` component placed along side them, which ensures parity with Bevy's own button behavior.
 
@@ -60,7 +60,7 @@ fn main() {
 }
 ```
 
-This simply adds the neccesary systems to update the button states, and also registers the button events for you.
+This simply adds the necessary systems to update the button states, and also registers the button events for you.
 
 ### 3. Spawn The BButtonBundle
 
@@ -111,7 +111,7 @@ fn main() {
 
 ### 4. Respond To Button Presses In `Update`
 
-Create a new system that changes the button's colour to when pressed:
+Create a new system that changes the button's color to when pressed:
 
 ```
 fn respond_to_button_state(
@@ -119,7 +119,7 @@ fn respond_to_button_state(
 ) {
     for (state, mut background_color) in &mut query {
         if state.just_entered {
-            background_color.0 = Color::GREEN;
+            background_color.0 = Color::YELLOW_GREEN;
         }
         if state.just_exited {
             background_color.0 = Color::WHITE;
@@ -130,7 +130,7 @@ fn respond_to_button_state(
 
 The system queries the `BPressState` component, which is a part of the `BButtonBundle` we used earlier.
 
-Now we can add the system to the `Update` schedule in your app:
+Now add the system to your app, but make sure specify that it should run before or after the `BButtonUpdateSet`. This ensures that your system will run at least once between consecutive runs of the `BButtonUpdateSet`, since the order in which systems and system sets run in Bevy can change from frame-to-frame if left unordered:
 
 ```
 fn main() {
@@ -158,12 +158,74 @@ fn main() {
 
 ### 4. Respond To Button Presses By Reading Events
 
-Since the state components of the button we created are updated in the `Update` schedule when using the `BButtonPlugin`, we cannot reliably read button presses from systems in the `FixedUpdate` schedule. This is because the `just_entered` and `just_exited` properties of the `BPressState` component are only set to `true` until the next time
+Since the state components of the button we created are updated in the `Update` schedule when using the `BButtonPlugin`, we cannot reliably read button presses from systems in the `FixedUpdate` schedule with queries on the button components. This is because the `just_entered` and `just_exited` properties of the `BPressState` component are only set to `true` for one frame in the `Update` schedule. And since in most cases the `Update` schedule runs multiple times for each `FixedUpdate`, the `just_entered` and `just_exited` properties could be set to `true` and then back to `false` between two `FixedUpdate` frames.
 
-The Bevy engine does not provide a guarantee that systems will run in the same order every frame, thus an order needs to be established between the systems that use the button state components and the `BButtonUpdateSet`. The order does not matter, as long as we can be sure that our systems run at least once every time the `BButtonUpdateSet` runs.
+This is where using events come in hand, since Bevy ensures that all systems in both `Update` and `FixedUpdate` receive any events generated exactly once before the events disappear.
 
-## Where do I go from here?
+Create a new system that changes the button's color when hovered, this time using events:
 
-Please check out the wiki for the project over at https://github.com/ArmourStorm/better_button/wiki for more information!
+```
+fn respond_to_button_events(
+    mut query: Query<&mut BackgroundColor, With<BHoverState>>,
+    mut event_reader: EventReader<BHoverEvent>,
+) {
+    for event in event_reader.read() {
+        match event {
+            BHoverEvent::JustEntered { entity } => {
+                if let Ok(mut background_color) = query.get_mut(*entity) {
+                    background_color.0 = Color::YELLOW_GREEN;
+                }
+            }
+            BHoverEvent::JustExited { entity } => {
+                if let Ok(mut background_color) = query.get_mut(*entity) {
+                    background_color.0 = Color::WHITE;
+                }
+            }
+        }
+    }
+}
+```
 
-Also, consider checking out my Youtube channel for other Bevy tutorials: https://www.youtube.com/channel/UCNxrqjSmo5Pke_B1Lc3p6LA.
+Comment out the previous system and add the latest one to the `FixedUpdate` schedule in your Bevy app:
+
+```
+fn main() {
+    App::new()
+        .add_plugins(
+            (
+                DefaultPlugins,
+                BButtonPlugin
+            )
+        )
+        .add_systems(
+            Startup,
+            (
+                spawn_camera,  
+                spawn_button  
+            ),
+        )
+        // .add_systems(
+        //     Update,
+        //     respond_to_button_state.after(BButtonUpdateSet)
+        // )
+        .add_systems(
+            FixedUpdate,
+            respond_to_button_events, // <------- Add the `respond_to_button_events` system to `FixedUpdate`.
+        )
+        .run();
+}
+```
+
+As you might have noticed, we do not need to specify whether our new system runs before or after `BButtonUpdateSet`. As mentioned earlier, Bevy ensures that all systems receive the events they read exactly once. So even if we did add our new system to the `Update` schedule without using `.after(BButtonUpdateSet)`, we can now for sure that it will not miss anything.
+
+### 5. Conclusion
+
+The decision whether to use the `better_button` crate with its events or by querying the components directly is up to you. There are pros and cons for both techniques.
+
+In general, when working in the `Update` schedule, it tends to be easier to query the button components directly when working with non-gameplay related logic. Like updating your button's visuals. On the other hand, using events are necessary when you are working in `FixedUpdate`. For example, using a button press to make a character jump on mobile devices.
+
+## What Next?
+
+Please check out the [Wiki](https://github.com/ArmourStorm/better_button/wiki) for more information on this library. 
+
+Also, please consider checking out my [YouTube](https://www.youtube.com/channel/UCNxrqjSmo5Pke_B1Lc3p6LA) channel if you like my work!
