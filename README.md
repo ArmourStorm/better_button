@@ -226,6 +226,4 @@ In general, when working in the `Update` schedule, it tends to be easier to quer
 
 ## What Next?
 
-Please check out the [Wiki](https://github.com/ArmourStorm/better_button/wiki) for more information on this library. 
-
-Also, please consider checking out my [YouTube](https://www.youtube.com/channel/UCNxrqjSmo5Pke_B1Lc3p6LA) channel if you like my work!
+Please check out the [Wiki](https://github.com/ArmourStorm/better_button/wiki) for more information about this library.
