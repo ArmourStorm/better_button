@@ -5,7 +5,7 @@ edition = "2021"
 publish = false
 
 [dependencies]
-bevy = { version = "0.13.2", features = ["dynamic_linking"] }
+bevy = { version = "0.14.0", features = ["dynamic_linking"] }
 better_button = { path = "../better_button" }
 
 [profile.dev]

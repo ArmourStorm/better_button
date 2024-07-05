@@ -14,6 +14,7 @@ Create a new binary crate, add bevy as a dependency and copy the following code 
 
 ```
 use bevy::prelude::*;
+use bevy::color::palettes::css::*;
 
 fn main() {
     App::new()
@@ -46,6 +47,7 @@ Import the `better_button` prelude and add the `BButtonPlugin` to your app:
 
 ```
 use bevy::prelude::*;
+use bevy::color::palettes::css::*;
 use better_button::prelude::*; // <------- Import the `better_button` prelude.
 
 fn main() {
@@ -80,6 +82,7 @@ fn spawn_button(mut commands: Commands) {
                     justify_self: JustifySelf::Center,
                     ..default()
                 },
+                background_color: BackgroundColor(WHITE.into()),
                 ..default()
             },
             ..default()
@@ -119,10 +122,10 @@ fn respond_to_button_state(
 ) {
     for (state, mut background_color) in &mut query {
         if state.just_entered {
-            background_color.0 = Color::YELLOW_GREEN;
+            background_color.0 = YELLOW_GREEN.into();
         }
         if state.just_exited {
-            background_color.0 = Color::WHITE;
+            background_color.0 = WHITE.into();
         }
     }
 }
@@ -173,12 +176,12 @@ fn respond_to_button_events(
         match event {
             BHoverEvent::JustEntered { entity } => {
                 if let Ok(mut background_color) = query.get_mut(*entity) {
-                    background_color.0 = Color::YELLOW_GREEN;
+                    background_color.0 = YELLOW_GREEN.into();
                 }
             }
             BHoverEvent::JustExited { entity } => {
                 if let Ok(mut background_color) = query.get_mut(*entity) {
-                    background_color.0 = Color::WHITE;
+                    background_color.0 = WHITE.into();
                 }
             }
         }
