@@ -219,7 +219,7 @@ fn main() {
 }
 ```
 
-As you might have noticed, we do not need to specify whether our new system runs before or after `BButtonUpdateSet`. As mentioned earlier, Bevy ensures that all systems receive the events they read exactly once. So even if we did add our new system to the `Update` schedule without using `.after(BButtonUpdateSet)`, we can now for sure that it will not miss anything.
+As you might have noticed, we do not need to specify whether our new system runs before or after `BButtonUpdateSet`. As mentioned earlier, Bevy ensures that all systems receive the events they read exactly once. So even if we did add our new system to the `Update` schedule without using `.after(BButtonUpdateSet)`, we can know for sure that it will not miss anything.
 
 ### 5. Conclusion
 
