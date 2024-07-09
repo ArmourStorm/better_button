@@ -72,22 +72,20 @@ Create a new system to spawns your first `BButtonBundle`:
 
 ```
 fn spawn_button(mut commands: Commands) {
-    commands.spawn(
-        BButtonBundle {
-            button_bundle: ButtonBundle {
-                style: Style {
-                    width: Val::Px(125.0),
-                    height: Val::Px(125.0),
-                    align_self: AlignSelf::Center,
-                    justify_self: JustifySelf::Center,
-                    ..default()
-                },
-                background_color: BackgroundColor(WHITE.into()),
+    commands.spawn(BButtonBundle::new(
+        ButtonBundle {
+            style: Style
+            {
+                width: Val::Px(125.0),
+                height: Val::Px(125.0),
+                align_self: AlignSelf::Center,
+                justify_self: JustifySelf::Center,
                 ..default()
             },
+            background_color: BackgroundColor(WHITE.into()),
             ..default()
         }
-    );
+    ));
 }
 ```
 

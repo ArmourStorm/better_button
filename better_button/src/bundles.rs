@@ -9,6 +9,15 @@ pub struct BButtonBundle {
     pub mouse_over_state: BMouseOverState,
 }
 
+impl BButtonBundle {
+    pub fn new(button_bundle: ButtonBundle) -> Self {
+        Self {
+            button_bundle,
+            ..default()
+        }
+    }
+}
+
 impl Default for BButtonBundle {
     fn default() -> Self {
         Self {
